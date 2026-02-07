@@ -15,6 +15,7 @@
     --muted:#6b7280;
     --radius:18px;
     --shadow-soft:0 12px 30px rgba(15,23,42,.08);
+    --wa:#16a34a;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -35,19 +36,9 @@
     padding:14px 18px;
     display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   }
-  .logo{
-    font-weight:900;font-size:20px;letter-spacing:.08em;
-    color:#fff;text-transform:uppercase;
-  }
-  .badge{
-    padding:4px 10px;border-radius:999px;
-    font-size:11px;font-weight:700;
-    background:rgba(255,255,255,.18);color:#eef2ff;
-  }
-  .tab-nav{
-    margin-left:auto;
-    display:flex;gap:8px;flex-wrap:wrap;
-  }
+  .logo{font-weight:900;font-size:20px;letter-spacing:.08em;color:#fff;text-transform:uppercase;}
+  .badge{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(255,255,255,.18);color:#eef2ff;}
+  .tab-nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
   .tab-btn{
     border:none;cursor:pointer;
     padding:8px 14px;border-radius:999px;
@@ -56,10 +47,8 @@
     backdrop-filter:blur(14px);
     transition:.25s;
   }
-  .tab-btn.active{
-    color:#111827;background:#f9fafb;
-    box-shadow:0 10px 24px rgba(15,23,42,.35);
-  }
+  .tab-btn:hover{transform:translateY(-1px);background:rgba(15,23,42,.22);}
+  .tab-btn.active{color:#111827;background:#f9fafb;box-shadow:0 10px 24px rgba(15,23,42,.35);}
 
   .page{max-width:1200px;margin:26px auto 32px;padding:0 16px 40px;}
   .section{
@@ -71,12 +60,15 @@
     display:none;
   }
   .section.active{display:block;}
+
+  .section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px;}
   .section-title{
     font-size:20px;font-weight:800;
     background:linear-gradient(90deg,#111827,#6b7280);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   }
-  .section-sub{font-size:13px;color:var(--muted);}
+  .section-sub{font-size:13px;color:var(--muted);margin-top:2px;}
+  .pill{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:var(--accent-soft);color:var(--accent);}
 
   .grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
@@ -86,28 +78,37 @@
   .field{
     width:100%;padding:9px 11px;border-radius:12px;
     border:1px solid #e5e7eb;font-size:14px;background:#f9fafb;
+    transition:.15s;
   }
-  .row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+  .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.10);background:#fff;}
+  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
 
   .btn{
     border:none;cursor:pointer;
     padding:9px 15px;border-radius:999px;
-    font-size:14px;font-weight:700;
+    font-size:14px;font-weight:800;
     background:linear-gradient(90deg,#d6006b,#7c3aed);
     color:#fff;
+    box-shadow:0 10px 22px rgba(148,27,128,.18);
+    transition:.15s;
   }
-  .btn.ghost{background:#fff;color:#4b5563;border:1px solid #e5e7eb;}
-  .btn.wa{background:#16a34a;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn.ghost{background:#fff;color:#4b5563;border:1px solid #e5e7eb;box-shadow:none;}
+  .btn.wa{background:var(--wa);box-shadow:0 10px 20px rgba(22,163,74,.25);}
+  .btn.dark{background:#111827;box-shadow:0 10px 20px rgba(17,24,39,.18);}
 
+  .brand-chips{display:flex;gap:8px;flex-wrap:wrap;}
   .chip{
-    padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;
-    background:#f3f4ff;color:#4f46e5;cursor:pointer;display:inline-flex;gap:6px;align-items:center;
+    padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;
+    background:#f3f4ff;color:#4f46e5;cursor:pointer;
+    display:inline-flex;gap:6px;align-items:center;
   }
   .chip.active{background:#111827;color:#fff;}
   .chip-dot{width:8px;height:8px;border-radius:50%;}
   .chip[data-brand="Acea"] .chip-dot{background:#05a8b0;}
   .chip[data-brand="Sky"] .chip-dot{background:#cf01cf;}
   .chip[data-brand="Fastweb"] .chip-dot{background:#e4b002;}
+  .chip[data-brand="Ho"] .chip-dot{background:#5f58a1;}
   .chip[data-brand="Tiscali"] .chip-dot{background:#3b2783;}
 
   .result{
@@ -115,16 +116,30 @@
     background:#f9fafb;border:1px solid #e5e7eb;font-size:13px;
     white-space:pre-wrap;
   }
+  .muted{font-size:12px;color:var(--muted);margin-top:6px;}
 
-  .progress-bar{
-    width:100%;height:10px;border-radius:999px;
-    background:#e5e7eb;overflow:hidden;
+  .card{
+    background:#fff;
+    border:1px solid #eef2ff;
+    border-radius:18px;
+    padding:14px;
+    box-shadow:0 10px 22px rgba(15,23,42,.06);
   }
-  .progress-fill{
-    height:100%;width:0;border-radius:999px;
-    background:linear-gradient(90deg,#22c55e,#4f46e5);
-    transition:width .25s;
+  .card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+  .card-title strong{font-size:14px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;}
+  .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .kpi{
+    margin-top:10px;
+    font-size:12px;
+    color:#111827;
+    background:#f8fafc;
+    border:1px dashed #e5e7eb;
+    padding:10px;
+    border-radius:12px;
+    white-space:pre-wrap;
   }
+  .kpi b{font-weight:900;}
 </style>
 </head>
 
@@ -143,26 +158,28 @@
 
 <main class="page">
 
-<!-- ================= PRODUZIONE ================= -->
+<!-- ================= PRODUZIONE (NEGOZIO) ================= -->
 <section id="tab-prod" class="section active">
   <div class="section-header">
     <div>
       <h2 class="section-title">Produzione – Obiettivi</h2>
-      <p class="section-sub">Calcolo produzione giornaliera e report.</p>
+      <p class="section-sub">Calcolo produzione giornaliera (mancanti / giorni lavorativi residui).</p>
     </div>
+    <span class="pill">focus giornaliero</span>
   </div>
 
   <div class="grid-2">
     <div>
       <label>Nome negozio</label>
-      <input id="storeName" class="field" placeholder="Es. Eta Beta">
+      <input id="storeName" class="field" placeholder="Es. GIERRE SRL">
     </div>
     <div>
       <label>Brand</label>
-      <div class="brand-chips">
+      <div class="brand-chips" id="brandChipsProd">
         <div class="chip active" data-brand="Acea"><span class="chip-dot"></span>Acea</div>
         <div class="chip" data-brand="Sky"><span class="chip-dot"></span>Sky</div>
         <div class="chip" data-brand="Fastweb"><span class="chip-dot"></span>Fastweb</div>
+        <div class="chip" data-brand="Ho"><span class="chip-dot"></span>HO Mobile</div>
         <div class="chip" data-brand="Tiscali"><span class="chip-dot"></span>Tiscali</div>
       </div>
     </div>
@@ -171,272 +188,467 @@
   <div class="grid-3" style="margin-top:14px;">
     <div>
       <label>Target totale</label>
-      <input id="targetContratti" class="field" type="number" min="0">
+      <input id="targetContratti" class="field" type="number" min="0" step="0.01" placeholder="Es. 20">
     </div>
     <div>
       <label>Produzione attuale</label>
-      <input id="produzioneAttuale" class="field" type="number" min="0">
+      <input id="produzioneAttuale" class="field" type="number" min="0" step="0.01" placeholder="Es. 10">
     </div>
     <div>
-      <label>Giorni lavorativi</label>
+      <label>Giorni lavorativi (lun–sab)</label>
       <input id="giorniLavorativi" class="field" disabled>
     </div>
   </div>
 
   <div class="row">
     <button id="btnCalcolaProd" class="btn">Calcola</button>
+    <button id="btnWaProd" class="btn wa">Invia WhatsApp al negozio</button>
   </div>
 
   <div id="resultProduzione" class="result"></div>
+  <p class="muted">I giorni lavorativi sono calcolati automaticamente da oggi a fine mese (lun–sab).</p>
 </section>
 
-<!-- ================= TARGET ================= -->
+<!-- ================= TARGET (MANAGER) ================= -->
 <section id="tab-target" class="section">
-
-  <h2 class="section-title">Target piste & PAF</h2>
-  <p class="section-sub">Imposta target per singolo brand e calcola la produzione giornaliera necessaria (PAF) fino a fine mese.</p>
-
-  <!-- TARGET per pista -->
-  <h3 style="margin-top:20px;margin-bottom:8px;">Target per singolo brand</h3>
-  <div class="grid-3">
-    <div><label>ACEA – Target contratti</label><input id="t-acea" class="field" type="number"></div>
-    <div><label>FW Mobile – Target</label><input id="t-fw-mobile" class="field" type="number" placeholder="Es. 35"></div>
-    <div><label>FW Fisso – Target</label><input id="t-fw-fisso" class="field" type="number" placeholder="Es. 5"></div>
-    <div><label>FW Energy – Target</label><input id="t-fw-energy" class="field" type="number" placeholder="Es. 5"></div>
-    <div><label>SKY Contratti – Target</label><input id="t-sky-contr" class="field" type="number" placeholder="Es. 7"></div>
-    <div><label>SKY Punti – Target</label><input id="t-sky-punti" class="field" type="number" placeholder="Es. 13"></div>
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Target Manager – PAF per piste principali</h2>
+      <p class="section-sub">Inserisci i TUOI target mensili (manager) + real: calcolo PAF fino a fine mese. Salvataggi separati.</p>
+    </div>
+    <span class="pill">solo brand principali</span>
   </div>
 
-  <div style="margin-top:10px;">
-    <button id="btnSaveBrandTargets" class="btn">Salva target brand</button>
+  <div class="row" style="margin-top:0;">
+    <button id="btnCalcolaPAF" class="btn">CALCOLA PAF</button>
+    <button id="btnSaveTargets" class="btn dark">SALVA TARGET</button>
+    <button id="btnSaveReals" class="btn dark">SALVA REAL</button>
+    <button id="btnLoadManager" class="btn ghost">CARICA</button>
+    <button id="btnResetManager" class="btn ghost">RESET</button>
   </div>
 
-  <!-- REAL per pista -->
-  <h3 style="margin-top:24px;margin-bottom:8px;">Produzione reale per singolo brand</h3>
-  <div class="grid-3">
-    <div><label>ACEA – Real contratti</label><input id="r-acea" class="field" type="number"></div>
-    <div><label>FW Mobile – Real</label><input id="r-fw-mobile" class="field" type="number"></div>
-    <div><label>FW Fisso – Real</label><input id="r-fw-fisso" class="field" type="number"></div>
-    <div><label>FW Energy – Real</label><input id="r-fw-energy" class="field" type="number"></div>
-    <div><label>SKY Contratti – Real</label><input id="r-sky-contr" class="field" type="number"></div>
-    <div><label>SKY Punti – Real</label><input id="r-sky-punti" class="field" type="number"></div>
+  <div id="daysBox" class="result" style="margin-top:12px;">Giorni lavorativi residui: …</div>
+
+  <div class="grid-3" style="margin-top:14px;">
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#05a8b0;"></span>ACEA – Luce & Gas</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_acea" class="field" type="number" min="0" step="1" placeholder="Es. 260"></div>
+        <div><label>Real</label><input id="r_acea" class="field" type="number" min="0" step="1" placeholder="Es. 114"></div>
+      </div>
+      <div id="kpi_acea" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#e4b002;"></span>FASTWEB – Mobile</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_fw_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 35"></div>
+        <div><label>Real</label><input id="r_fw_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_fw_mobile" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#f59e0b;"></span>FASTWEB – Fisso</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_fw_fisso" class="field" type="number" min="0" step="1" placeholder="Es. 5"></div>
+        <div><label>Real</label><input id="r_fw_fisso" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_fw_fisso" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#b45309;"></span>FASTWEB – Energy</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_fw_energy" class="field" type="number" min="0" step="1" placeholder="Es. 5"></div>
+        <div><label>Real</label><input id="r_fw_energy" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_fw_energy" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#cf01cf;"></span>SKY – Contratti</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_sky_contr" class="field" type="number" min="0" step="1" placeholder="Es. 7"></div>
+        <div><label>Real</label><input id="r_sky_contr" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_sky_contr" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#7c3aed;"></span>SKY – Punti</strong>
+        <span class="pill">punti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_sky_punti" class="field" type="number" min="0" step="0.5" placeholder="Es. 13"></div>
+        <div><label>Real</label><input id="r_sky_punti" class="field" type="number" min="0" step="0.5" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_sky_punti" class="kpi">—</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#5f58a1;"></span>HO Mobile</strong>
+        <span class="pill">contratti</span>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_ho_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 20"></div>
+        <div><label>Real</label><input id="r_ho_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_ho_mobile" class="kpi">—</div>
+    </div>
   </div>
 
-  <button id="btnCalcolaPiste" class="btn" style="margin-top:16px;">CALCOLA PAF PER PISTA</button>
-  <pre id="pisteOutput" class="result" style="margin-top:14px;"></pre>
-
-  <script>
-    // -------------------------------
-    // Utility: giorni lavorativi lun–sab
-    // -------------------------------
-    function calcolaGiorniLavorativiRimanenti(fromDate){
-      const oggi = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
-      const fineMese = new Date(oggi.getFullYear(), oggi.getMonth()+1, 0);
-      let giorni = 0;
-      const tmp = new Date(oggi);
-      while(tmp <= fineMese){
-        const day = tmp.getDay(); // 0=Dom, 1=Lun, ... 6=Sab
-        if(day >= 1 && day <= 6){ giorni++; }
-        tmp.setDate(tmp.getDate()+1);
-      }
-      return giorni;
-    }
-
-    function formatNumber2(v){
-      if(isNaN(v)) return "0,00";
-      return v.toFixed(2).replace(".", ",");
-    }
-
-    // -------------------------------
-    // Tabs
-    // -------------------------------
-    document.querySelectorAll('.tab-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const id = btn.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(id).classList.add('active');
-      });
-    });
-
-    // -------------------------------
-    // Brand chips
-    // -------------------------------
-    document.querySelectorAll('.chip').forEach(ch=>{
-      ch.addEventListener('click', ()=>{
-        document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-        ch.classList.add('active');
-      });
-    });
-
-    function getChipBrand(){
-      const active = document.querySelector('.chip.active');
-      return active ? active.getAttribute('data-brand') : "";
-    }
-
-    // -------------------------------
-    // PRODUZIONE – logica
-    // -------------------------------
-    const inputTarget = document.getElementById('targetContratti');
-    const inputProd = document.getElementById('produzioneAttuale');
-    const inputGiorni = document.getElementById('giorniLavorativi');
-    const resultProduzione = document.getElementById('resultProduzione');
-    const btnCalcolaProd = document.getElementById('btnCalcolaProd');
-    const inputStore = document.getElementById('storeName');
-
-    function aggiornaGiorniLavorativi(){
-      const oggi = new Date();
-      const giorni = calcolaGiorniLavorativiRimanenti(oggi);
-      inputGiorni.value = giorni;
-      return giorni;
-    }
-
-    function calcolaProduzione(){
-      const giorni = aggiornaGiorniLavorativi();
-      const target = parseFloat(inputTarget.value.replace(",", "."));
-      const prod = parseFloat(inputProd.value.replace(",", "."));
-
-      if(isNaN(target) || target <= 0){
-        resultProduzione.textContent = "Inserisci un target valido.";
-        return null;
-      }
-      if(isNaN(prod) || prod < 0){
-        resultProduzione.textContent = "Inserisci una produzione valida.";
-        return null;
-      }
-
-      const mancantiRaw = target - prod;
-      const mancanti = mancantiRaw > 0 ? mancantiRaw : 0;
-      const media = giorni > 0 ? mancanti / giorni : 0;
-
-      const oggi = new Date();
-      const fineMese = new Date(oggi.getFullYear(), oggi.getMonth()+1, 0);
-
-      resultProduzione.textContent =
-        `📊 Riepilogo produzione\n` +
-        `Periodo: ${oggi.toLocaleDateString('it-IT')} → ${fineMese.toLocaleDateString('it-IT')}\n\n` +
-        `🎯 Target: ${formatNumber2(target)}\n` +
-        `✅ Produzione attuale: ${formatNumber2(prod)}\n` +
-        `📉 Mancanti: ${formatNumber2(mancanti)}\n` +
-        `📅 Giorni lavorativi: ${giorni}\n` +
-        `⚡ Media necessaria: ${formatNumber2(media)} contratti/giorno`;
-
-      return { giorni, target, prod, mancanti, media };
-    }
-
-    btnCalcolaProd.addEventListener('click', calcolaProduzione);
-
-    // All'avvio aggiorna giorni
-    aggiornaGiorniLavorativi();
-
-    // -------------------------------------------------------
-    //     SALVATAGGIO TARGET PER SINGOLO BRAND (LOCALSTORAGE)
-    // -------------------------------------------------------
-    const STORAGE_KEY_BRAND_TARGETS = "dealerPro_brandTargets";
-    const btnSaveBrandTargets = document.getElementById("btnSaveBrandTargets");
-
-    function salvaTargetBrand(){
-      const data = {
-        acea:      parseInt(document.getElementById("t-acea").value || 0, 10),
-        fwMobile:  parseInt(document.getElementById("t-fw-mobile").value || 0, 10),
-        fwFisso:   parseInt(document.getElementById("t-fw-fisso").value || 0, 10),
-        fwEnergy:  parseInt(document.getElementById("t-fw-energy").value || 0, 10),
-        skyContr:  parseInt(document.getElementById("t-sky-contr").value || 0, 10),
-        skyPunti:  parseInt(document.getElementById("t-sky-punti").value || 0, 10)
-      };
-      localStorage.setItem(STORAGE_KEY_BRAND_TARGETS, JSON.stringify(data));
-      alert("Target per singolo brand salvati correttamente.");
-    }
-
-    function caricaTargetBrand(){
-      try{
-        const raw = localStorage.getItem(STORAGE_KEY_BRAND_TARGETS);
-        if(!raw) return;
-        const data = JSON.parse(raw);
-        if(data.acea      !== undefined) document.getElementById("t-acea").value      = data.acea      || "";
-        if(data.fwMobile  !== undefined) document.getElementById("t-fw-mobile").value = data.fwMobile  || "";
-        if(data.fwFisso   !== undefined) document.getElementById("t-fw-fisso").value  = data.fwFisso   || "";
-        if(data.fwEnergy  !== undefined) document.getElementById("t-fw-energy").value = data.fwEnergy  || "";
-        if(data.skyContr  !== undefined) document.getElementById("t-sky-contr").value = data.skyContr  || "";
-        if(data.skyPunti  !== undefined) document.getElementById("t-sky-punti").value = data.skyPunti  || "";
-      }catch(e){
-        console.error("Errore caricamento target brand:", e);
-      }
-    }
-
-    btnSaveBrandTargets.addEventListener("click", salvaTargetBrand);
-    caricaTargetBrand();
-
-    // -------------------------------------------------------
-    //     ⭐ LOGICA PISTE (ACEA + FASTWEB + SKY) – PAF ⭐
-    // -------------------------------------------------------
-    function calcolaGiorniResidui(){
-      const oggi = new Date();
-      return calcolaGiorniLavorativiRimanenti(oggi);
-    }
-
-    function calcolaPiste(){
-      const giorni = calcolaGiorniResidui();
-
-      const piste = [
-        {
-          nome: "ACEA (contratti)",
-          target: parseInt(document.getElementById("t-acea").value || 0, 10),
-          real:   parseInt(document.getElementById("r-acea").value || 0, 10)
-        },
-        {
-          nome: "FASTWEB Mobile",
-          target: parseInt(document.getElementById("t-fw-mobile").value || 0, 10),
-          real:   parseInt(document.getElementById("r-fw-mobile").value || 0, 10)
-        },
-        {
-          nome: "FASTWEB Fisso",
-          target: parseInt(document.getElementById("t-fw-fisso").value || 0, 10),
-          real:   parseInt(document.getElementById("r-fw-fisso").value || 0, 10)
-        },
-        {
-          nome: "FASTWEB Energy",
-          target: parseInt(document.getElementById("t-fw-energy").value || 0, 10),
-          real:   parseInt(document.getElementById("r-fw-energy").value || 0, 10)
-        },
-        {
-          nome: "SKY Contratti",
-          target: parseInt(document.getElementById("t-sky-contr").value || 0, 10),
-          real:   parseInt(document.getElementById("r-sky-contr").value || 0, 10)
-        },
-        {
-          nome: "SKY Punti",
-          target: parseInt(document.getElementById("t-sky-punti").value || 0, 10),
-          real:   parseInt(document.getElementById("r-sky-punti").value || 0, 10)
-        }
-      ];
-
-      let output =
-        `📊 RIEPILOGO OBIETTIVI PISTE (PAF)\n\n` +
-        `Giorni lavorativi residui (lun–sab): ${giorni}\n\n`;
-
-      piste.forEach(p => {
-        const mancanti = Math.max(0, p.target - p.real);
-        const media = giorni > 0 ? mancanti / giorni : 0;
-
-        output +=
-          `🔹 ${p.nome}\n` +
-          `   Target: ${p.target}\n` +
-          `   Real: ${p.real}\n` +
-          `   Mancanti: ${mancanti}\n` +
-          `   PAF (prod/giorno): ${formatNumber2(media)}\n\n`;
-      });
-
-      document.getElementById("pisteOutput").textContent = output;
-    }
-
-    document.getElementById("btnCalcolaPiste").addEventListener("click", calcolaPiste);
-  </script>
-
-</section> <!-- fine tab-target -->
+  <pre id="pafOutput" class="result" style="margin-top:14px;"></pre>
+  <p class="muted">I salvataggi sono separati: TARGET (una volta) + REAL (avanzamenti). Inoltre viene memorizzato l’ultimo testo risultato.</p>
+</section>
 
 </main>
+
+<script>
+  // -------------------------------
+  // Utility
+  // -------------------------------
+  function calcolaGiorniLavorativiRimanenti(fromDate){
+    const oggi = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+    const fineMese = new Date(oggi.getFullYear(), oggi.getMonth()+1, 0);
+    let giorni = 0;
+    const tmp = new Date(oggi);
+    while(tmp <= fineMese){
+      const day = tmp.getDay(); // 0=Dom, 1=Lun, ... 6=Sab
+      if(day >= 1 && day <= 6){ giorni++; }
+      tmp.setDate(tmp.getDate()+1);
+    }
+    return giorni;
+  }
+  function n(v){
+    const x = parseFloat(String(v ?? "").replace(",", "."));
+    return isNaN(x) ? 0 : x;
+  }
+  function fmt2(v){
+    return (isNaN(v) ? 0 : v).toFixed(2).replace(".", ",");
+  }
+  function monthKey(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    return `${y}-${m}`;
+  }
+  function nicePeriod(){
+    const oggi = new Date();
+    const fineMese = new Date(oggi.getFullYear(), oggi.getMonth()+1, 0);
+    const opt = {day:"2-digit",month:"2-digit",year:"numeric"};
+    return {
+      oggi, fineMese,
+      from: oggi.toLocaleDateString("it-IT", opt),
+      to: fineMese.toLocaleDateString("it-IT", opt),
+    };
+  }
+
+  // -------------------------------
+  // Tabs
+  // -------------------------------
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-tab');
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(id).classList.add('active');
+    });
+  });
+
+  // -------------------------------
+  // Brand chips (Produzione)
+  // -------------------------------
+  document.querySelectorAll('#brandChipsProd .chip').forEach(ch=>{
+    ch.addEventListener('click', ()=>{
+      document.querySelectorAll('#brandChipsProd .chip').forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+    });
+  });
+  function getChipBrand(){
+    const active = document.querySelector('#brandChipsProd .chip.active');
+    return active ? active.getAttribute('data-brand') : "";
+  }
+
+  // -------------------------------
+  // PRODUZIONE – logica + WhatsApp
+  // -------------------------------
+  const inputTarget = document.getElementById('targetContratti');
+  const inputProd = document.getElementById('produzioneAttuale');
+  const inputGiorni = document.getElementById('giorniLavorativi');
+  const resultProduzione = document.getElementById('resultProduzione');
+  const btnCalcolaProd = document.getElementById('btnCalcolaProd');
+  const btnWaProd = document.getElementById('btnWaProd');
+  const inputStore = document.getElementById('storeName');
+
+  function aggiornaGiorniLavorativi(){
+    const giorni = calcolaGiorniLavorativiRimanenti(new Date());
+    inputGiorni.value = giorni;
+    return giorni;
+  }
+
+  function calcolaProduzione(){
+    const giorni = aggiornaGiorniLavorativi();
+    const target = n(inputTarget.value);
+    const prod = n(inputProd.value);
+
+    if(target <= 0){
+      resultProduzione.textContent = "Inserisci un target valido (maggiore di 0).";
+      return null;
+    }
+    if(prod < 0){
+      resultProduzione.textContent = "Inserisci una produzione valida (>= 0).";
+      return null;
+    }
+
+    const mancanti = Math.max(0, target - prod);
+    const paf = giorni > 0 ? mancanti / giorni : 0;
+
+    const p = nicePeriod();
+    const testo =
+      `📊 Riepilogo produzione\n` +
+      `Periodo: ${p.from} → ${p.to}\n\n` +
+      `🎯 Target: ${fmt2(target)}\n` +
+      `✅ Produzione attuale: ${fmt2(prod)}\n` +
+      `📉 Mancanti: ${fmt2(mancanti)}\n` +
+      `📅 Giorni lavorativi: ${giorni}\n` +
+      `⚡ PAF: ${fmt2(paf)} contratti/giorno`;
+
+    resultProduzione.textContent = testo;
+
+    return { giorni, target, prod, mancanti, paf, period:p };
+  }
+
+  btnCalcolaProd.addEventListener('click', calcolaProduzione);
+
+  btnWaProd.addEventListener('click', ()=>{
+    const calc = calcolaProduzione();
+    if(!calc) return;
+
+    const negozio = (inputStore.value || "N/D").trim();
+    const brand = getChipBrand() || "N/D";
+
+    const msg =
+      `*REPORT PRODUZIONE*\n\n` +
+      `Negozio: *${negozio}*\n` +
+      `Brand: *${brand}*\n` +
+      `Periodo: *${calc.period.from} → ${calc.period.to}*\n\n` +
+      `Target: *${fmt2(calc.target)}*\n` +
+      `Produzione attuale: *${fmt2(calc.prod)}*\n` +
+      `Mancanti: *${fmt2(calc.mancanti)}*\n` +
+      `Giorni lavorativi residui (lun–sab): *${calc.giorni}*\n` +
+      `PAF: *${fmt2(calc.paf)} contratti/giorno*\n\n` +
+      `MARIO ISERNIA\nArea Manager\nMultibrand - e2k`;
+
+    const url = "https://wa.me/?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  });
+
+  aggiornaGiorniLavorativi();
+
+  // -------------------------------
+  // TARGET MANAGER – PAF principali + salvataggi separati
+  // -------------------------------
+  const LS_TARGETS_KEY = "dealerPro_managerTargets_main_v2";
+  const LS_REALS_KEY   = "dealerPro_managerReals_main_v2";
+  const LS_RESULT_KEY  = "dealerPro_managerLastResult_main_v2";
+
+  function aggiornaGiorniBox(){
+    const giorni = calcolaGiorniLavorativiRimanenti(new Date());
+    document.getElementById("daysBox").textContent = `📅 Giorni lavorativi residui (lun–sab): ${giorni}`;
+    return giorni;
+  }
+
+  const TRACKS_MAIN = [
+    { key:"acea",      label:"ACEA – Luce & Gas",     unit:"contratti", t:"t_acea",      r:"r_acea",      k:"kpi_acea" },
+    { key:"fw_mobile", label:"FASTWEB – Mobile",      unit:"contratti", t:"t_fw_mobile", r:"r_fw_mobile", k:"kpi_fw_mobile" },
+    { key:"fw_fisso",  label:"FASTWEB – Fisso",       unit:"contratti", t:"t_fw_fisso",  r:"r_fw_fisso",  k:"kpi_fw_fisso" },
+    { key:"fw_energy", label:"FASTWEB – Energy",      unit:"contratti", t:"t_fw_energy", r:"r_fw_energy", k:"kpi_fw_energy" },
+    { key:"sky_contr", label:"SKY – Contratti",       unit:"contratti", t:"t_sky_contr", r:"r_sky_contr", k:"kpi_sky_contr" },
+    { key:"sky_punti", label:"SKY – Punti",           unit:"punti",     t:"t_sky_punti", r:"r_sky_punti", k:"kpi_sky_punti" },
+    { key:"ho_mobile", label:"HO Mobile",             unit:"contratti", t:"t_ho_mobile", r:"r_ho_mobile", k:"kpi_ho_mobile" },
+  ];
+
+  function getVal(id){ return n(document.getElementById(id)?.value); }
+  function setVal(id, v){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.value = (v === null || v === undefined || v === "") ? "" : v;
+  }
+
+  function saveLastResult(text){
+    const payload = { month: monthKey(new Date()), ts: Date.now(), text: text || "" };
+    localStorage.setItem(LS_RESULT_KEY, JSON.stringify(payload));
+  }
+
+  function loadLastResult(){
+    try{
+      const raw = localStorage.getItem(LS_RESULT_KEY);
+      if(!raw) return false;
+      const data = JSON.parse(raw);
+      if(data?.text){
+        document.getElementById("pafOutput").textContent = data.text;
+        return true;
+      }
+      return false;
+    }catch(e){
+      return false;
+    }
+  }
+
+  function calcolaPAFManager(){
+    const giorni = aggiornaGiorniBox();
+    const p = nicePeriod();
+
+    let out =
+      `📌 PAF Manager (piste principali)\n` +
+      `Periodo: ${p.from} → ${p.to}\n` +
+      `Giorni lavorativi residui (lun–sab): ${giorni}\n\n`;
+
+    let maxPaf = -1, maxLabel = "";
+
+    TRACKS_MAIN.forEach(t=>{
+      const target = getVal(t.t);
+      const real = getVal(t.r);
+      const mancanti = Math.max(0, target - real);
+      const paf = giorni > 0 ? (mancanti / giorni) : 0;
+
+      if(paf > maxPaf && mancanti > 0){
+        maxPaf = paf;
+        maxLabel = t.label;
+      }
+
+      const kpi = document.getElementById(t.k);
+      if(kpi){
+        kpi.innerHTML =
+          `Target: <b>${fmt2(target)}</b> | Real: <b>${fmt2(real)}</b>\n` +
+          `Mancanti: <b>${fmt2(mancanti)}</b>\n` +
+          `PAF: <b>${fmt2(paf)}</b> ${t.unit}/giorno`;
+      }
+
+      if(target > 0 || real > 0){
+        out +=
+          `• ${t.label}\n`+
+          `  Target: ${fmt2(target)} | Real: ${fmt2(real)} | Mancanti: ${fmt2(mancanti)}\n`+
+          `  PAF: ${fmt2(paf)} ${t.unit}/giorno\n\n`;
+      }
+    });
+
+    if(maxPaf > 0){
+      out += `🎯 Priorità operativa (PAF più alta): ${maxLabel} → ${fmt2(maxPaf)} /giorno`;
+    }else{
+      out += `✅ Nessuna pista in carenza (mancanti = 0 su tutte le piste compilate).`;
+    }
+
+    const finalText = out.trim();
+    document.getElementById("pafOutput").textContent = finalText;
+
+    // ✅ salva anche il testo risultato
+    saveLastResult(finalText);
+  }
+
+  function saveTargetsManager(){
+    const payload = { month: monthKey(new Date()), ts: Date.now(), values: {} };
+    TRACKS_MAIN.forEach(t=>{ payload.values[t.t] = getVal(t.t); });
+    localStorage.setItem(LS_TARGETS_KEY, JSON.stringify(payload));
+    alert("Target salvati in locale ✅");
+  }
+
+  function saveRealsManager(){
+    const payload = { month: monthKey(new Date()), ts: Date.now(), values: {} };
+    TRACKS_MAIN.forEach(t=>{ payload.values[t.r] = getVal(t.r); });
+    localStorage.setItem(LS_REALS_KEY, JSON.stringify(payload));
+
+    // opzionale: salva snapshot risultato corrente (se presente)
+    const currentText = (document.getElementById("pafOutput").textContent || "").trim();
+    if(currentText) saveLastResult(currentText);
+
+    alert("Real (avanzamenti) salvati in locale ✅");
+  }
+
+  function loadManager(){
+    let loadedSomething = false;
+
+    // targets
+    try{
+      const rawT = localStorage.getItem(LS_TARGETS_KEY);
+      if(rawT){
+        const dataT = JSON.parse(rawT);
+        if(dataT?.values){
+          Object.keys(dataT.values).forEach(id => setVal(id, dataT.values[id]));
+          loadedSomething = true;
+        }
+      }
+    }catch(e){}
+
+    // reals
+    try{
+      const rawR = localStorage.getItem(LS_REALS_KEY);
+      if(rawR){
+        const dataR = JSON.parse(rawR);
+        if(dataR?.values){
+          Object.keys(dataR.values).forEach(id => setVal(id, dataR.values[id]));
+          loadedSomething = true;
+        }
+      }
+    }catch(e){}
+
+    // last result
+    const hasResult = loadLastResult();
+    if(hasResult) loadedSomething = true;
+
+    aggiornaGiorniBox();
+
+    if(!loadedSomething){
+      alert("Nessun dato salvato da caricare.");
+    }else{
+      alert("Dati caricati ✅ (Target/Real/Ultimo risultato)");
+    }
+  }
+
+  function resetManager(){
+    localStorage.removeItem(LS_TARGETS_KEY);
+    localStorage.removeItem(LS_REALS_KEY);
+    localStorage.removeItem(LS_RESULT_KEY);
+
+    TRACKS_MAIN.forEach(t=>{
+      setVal(t.t,"");
+      setVal(t.r,"");
+      const kpi = document.getElementById(t.k);
+      if(kpi) kpi.textContent = "—";
+    });
+
+    document.getElementById("pafOutput").textContent = "";
+    alert("Reset completo ✅");
+  }
+
+  document.getElementById("btnCalcolaPAF").addEventListener("click", calcolaPAFManager);
+  document.getElementById("btnSaveTargets").addEventListener("click", saveTargetsManager);
+  document.getElementById("btnSaveReals").addEventListener("click", saveRealsManager);
+  document.getElementById("btnLoadManager").addEventListener("click", loadManager);
+  document.getElementById("btnResetManager").addEventListener("click", resetManager);
+
+  // init: giorni + autoload (non invasivo)
+  aggiornaGiorniBox();
+  loadManager();
+</script>
 
 </body>
 </html>
