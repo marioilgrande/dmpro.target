@@ -4,31 +4,44 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DEALER PRO – TARGET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --base:#d6006b;
     --accent:#4f46e5;
     --accent-soft:#eef2ff;
-    --bg:#f3f4f6;
+    --bg:#f4f5f9;
     --card:#ffffff;
-    --text:#111827;
-    --muted:#6b7280;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e6e8f0;
     --radius:18px;
-    --shadow-soft:0 12px 30px rgba(15,23,42,.08);
+    --shadow-soft:0 10px 28px rgba(15,23,42,.06);
+    --shadow-hover:0 18px 38px rgba(15,23,42,.10);
     --wa:#16a34a;
+    --ok:#10b981;
+    --warn:#f59e0b;
+    --danger:#ef4444;
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  html,body{font-family:'Montserrat',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
   body{
-    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(900px 600px at 0% 0%, #ffe4f1 0, transparent 55%),
-               radial-gradient(900px 600px at 100% 0%, #e0e7ff 0, transparent 55%),
-               var(--bg);
+    background:
+      radial-gradient(900px 600px at 0% 0%, #ffe4f1 0, transparent 55%),
+      radial-gradient(900px 600px at 100% 0%, #e0e7ff 0, transparent 55%),
+      var(--bg);
     color:var(--text);
+    font-weight:500;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
   }
 
+  /* ---------- TOPBAR ---------- */
   .topbar{
     position:sticky;top:0;z-index:40;
-    background:linear-gradient(90deg,#d6006b,#7c3aed,#1d4ed8);
+    background:linear-gradient(90deg,#d6006b 0%,#7c3aed 55%,#1d4ed8 100%);
     box-shadow:0 12px 30px rgba(0,0,0,.18);
   }
   .topbar-inner{
@@ -36,110 +49,218 @@
     padding:14px 18px;
     display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   }
-  .logo{font-weight:900;font-size:20px;letter-spacing:.08em;color:#fff;text-transform:uppercase;}
-  .badge{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(255,255,255,.18);color:#eef2ff;}
-  .tab-nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+  .logo{
+    font-weight:900;font-size:18px;letter-spacing:.14em;
+    color:#fff;text-transform:uppercase;
+  }
+  .badge{
+    padding:5px 12px;border-radius:999px;
+    font-size:10.5px;font-weight:700;letter-spacing:.06em;
+    background:rgba(255,255,255,.18);color:#fff;text-transform:uppercase;
+  }
+  .tab-nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
   .tab-btn{
     border:none;cursor:pointer;
-    padding:8px 14px;border-radius:999px;
-    font-size:14px;font-weight:600;
-    color:#e5e7eb;background:rgba(15,23,42,.15);
+    padding:9px 16px;border-radius:999px;
+    font-size:13px;font-weight:700;letter-spacing:.02em;
+    color:#e5e7eb;background:rgba(15,23,42,.18);
     backdrop-filter:blur(14px);
-    transition:.25s;
+    transition:.2s ease;
+    font-family:'Montserrat',sans-serif;
   }
-  .tab-btn:hover{transform:translateY(-1px);background:rgba(15,23,42,.22);}
-  .tab-btn.active{color:#111827;background:#f9fafb;box-shadow:0 10px 24px rgba(15,23,42,.35);}
+  .tab-btn:hover{transform:translateY(-1px);background:rgba(15,23,42,.28);}
+  .tab-btn.active{color:#111827;background:#fff;box-shadow:0 10px 24px rgba(15,23,42,.35);}
 
-  .page{max-width:1200px;margin:26px auto 32px;padding:0 16px 40px;}
+  /* ---------- LAYOUT ---------- */
+  .page{max-width:1200px;margin:24px auto 32px;padding:0 16px 40px;}
   .section{
-    background:linear-gradient(180deg,rgba(255,255,255,.96),#ffffff);
-    border-radius:24px;
-    padding:20px 20px 22px;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px 22px 24px;
     box-shadow:var(--shadow-soft);
     margin-bottom:20px;
     display:none;
   }
   .section.active{display:block;}
 
-  .section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px;}
-  .section-title{
-    font-size:20px;font-weight:800;
-    background:linear-gradient(90deg,#111827,#6b7280);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  .section-header{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    gap:12px;margin-bottom:18px;padding-bottom:16px;
+    border-bottom:1px solid var(--border);
   }
-  .section-sub{font-size:13px;color:var(--muted);margin-top:2px;}
-  .pill{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:var(--accent-soft);color:var(--accent);}
+  .section-title{
+    font-size:19px;font-weight:800;letter-spacing:-.01em;color:#0f172a;
+  }
+  .section-sub{font-size:12.5px;color:var(--muted);margin-top:4px;font-weight:500;}
+  .pill{
+    padding:5px 11px;border-radius:999px;
+    font-size:10.5px;font-weight:800;letter-spacing:.05em;
+    background:var(--accent-soft);color:var(--accent);
+    text-transform:uppercase;white-space:nowrap;
+  }
 
+  /* ---------- GRID ---------- */
   .grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
 
-  label{font-size:13px;font-weight:700;display:block;margin-bottom:4px;color:#374151;}
+  /* ---------- FORM ---------- */
+  label{
+    font-size:11.5px;font-weight:700;letter-spacing:.04em;
+    display:block;margin-bottom:6px;color:#475569;text-transform:uppercase;
+  }
   .field{
-    width:100%;padding:9px 11px;border-radius:12px;
-    border:1px solid #e5e7eb;font-size:14px;background:#f9fafb;
+    width:100%;padding:10px 12px;border-radius:11px;
+    border:1px solid var(--border);font-size:14px;
+    background:#fbfbfd;color:#0f172a;
+    font-family:'Montserrat',sans-serif;font-weight:600;
     transition:.15s;
   }
-  .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.10);background:#fff;}
-  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+  .field::placeholder{color:#9ca3af;font-weight:500;}
+  .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.12);background:#fff;}
+  .field:disabled{background:#f3f4f6;color:#475569;}
+  .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
 
+  /* ---------- BUTTONS ---------- */
   .btn{
     border:none;cursor:pointer;
-    padding:9px 15px;border-radius:999px;
-    font-size:14px;font-weight:800;
+    padding:10px 18px;border-radius:999px;
+    font-size:13px;font-weight:800;letter-spacing:.03em;
     background:linear-gradient(90deg,#d6006b,#7c3aed);
     color:#fff;
-    box-shadow:0 10px 22px rgba(148,27,128,.18);
-    transition:.15s;
+    box-shadow:0 10px 22px rgba(148,27,128,.22);
+    transition:.18s ease;
+    font-family:'Montserrat',sans-serif;
+    text-transform:uppercase;
   }
-  .btn:hover{transform:translateY(-1px);}
-  .btn.ghost{background:#fff;color:#4b5563;border:1px solid #e5e7eb;box-shadow:none;}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 14px 26px rgba(148,27,128,.28);}
+  .btn.ghost{background:#fff;color:#475569;border:1px solid var(--border);box-shadow:none;}
+  .btn.ghost:hover{background:#f8fafc;}
   .btn.wa{background:var(--wa);box-shadow:0 10px 20px rgba(22,163,74,.25);}
-  .btn.dark{background:#111827;box-shadow:0 10px 20px rgba(17,24,39,.18);}
+  .btn.dark{background:#0f172a;box-shadow:0 10px 20px rgba(15,23,42,.18);}
 
+  /* ---------- CHIPS BRAND ---------- */
   .brand-chips{display:flex;gap:8px;flex-wrap:wrap;}
   .chip{
-    padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;
-    background:#f3f4ff;color:#4f46e5;cursor:pointer;
-    display:inline-flex;gap:6px;align-items:center;
+    padding:8px 13px;border-radius:999px;
+    font-size:12px;font-weight:700;letter-spacing:.02em;
+    background:#fff;color:#475569;cursor:pointer;
+    display:inline-flex;gap:8px;align-items:center;
+    border:1px solid var(--border);
+    transition:.15s ease;
   }
-  .chip.active{background:#111827;color:#fff;}
-  .chip-dot{width:8px;height:8px;border-radius:50%;}
+  .chip:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft);}
+  .chip.active{background:#0f172a;color:#fff;border-color:#0f172a;}
+  .chip-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
   .chip[data-brand="Acea"] .chip-dot{background:#05a8b0;}
   .chip[data-brand="Sky"] .chip-dot{background:#cf01cf;}
   .chip[data-brand="Fastweb"] .chip-dot{background:#e4b002;}
   .chip[data-brand="Ho"] .chip-dot{background:#5f58a1;}
-  .chip[data-brand="Tiscali"] .chip-dot{background:#3b2783;}
+  .chip[data-brand="TiscaliMobile"] .chip-dot{background:#3b2783;}
+  .chip[data-brand="TiscaliFisso"] .chip-dot{background:#6d28d9;}
 
+  /* ---------- RESULT BOXES ---------- */
   .result{
-    margin-top:12px;padding:14px;border-radius:14px;
-    background:#f9fafb;border:1px solid #e5e7eb;font-size:13px;
+    margin-top:14px;padding:14px 16px;border-radius:14px;
+    background:#f8fafc;border:1px solid var(--border);
+    font-size:13px;line-height:1.55;font-weight:500;
     white-space:pre-wrap;
+    font-family:'Montserrat',sans-serif;
+    color:#0f172a;
   }
-  .muted{font-size:12px;color:var(--muted);margin-top:6px;}
+  .muted{font-size:11.5px;color:var(--muted);margin-top:8px;font-weight:500;}
 
+  /* ---------- CARDS TARGET MANAGER ---------- */
   .card{
     background:#fff;
-    border:1px solid #eef2ff;
-    border-radius:18px;
-    padding:14px;
-    box-shadow:0 10px 22px rgba(15,23,42,.06);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:14px 14px 12px;
+    box-shadow:var(--shadow-soft);
+    transition:.2s ease;
+    position:relative;
   }
-  .card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
-  .card-title strong{font-size:14px;}
+  .card.disabled{
+    background:#fafafb;
+    opacity:.55;
+  }
+  .card.disabled .field{background:#f1f3f7;}
+  .card-title{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin-bottom:12px;
+  }
+  .card-title strong{
+    font-size:13px;font-weight:800;color:#0f172a;letter-spacing:.01em;
+    display:flex;align-items:center;
+  }
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;}
   .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .kpi{
-    margin-top:10px;
-    font-size:12px;
-    color:#111827;
-    background:#f8fafc;
-    border:1px dashed #e5e7eb;
-    padding:10px;
-    border-radius:12px;
-    white-space:pre-wrap;
+    margin-top:10px;font-size:12px;
+    color:#0f172a;background:#f8fafc;
+    border:1px dashed var(--border);
+    padding:10px 12px;border-radius:11px;
+    white-space:pre-wrap;line-height:1.55;font-weight:500;
   }
-  .kpi b{font-weight:900;}
+  .kpi b{font-weight:800;color:#0f172a;}
+
+  /* ---------- TOGGLE ---------- */
+  .toggle{
+    display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+    user-select:none;
+  }
+  .toggle input{display:none;}
+  .toggle-track{
+    width:34px;height:20px;border-radius:999px;
+    background:#cbd5e1;position:relative;transition:.2s ease;
+  }
+  .toggle-track::after{
+    content:"";position:absolute;top:2px;left:2px;
+    width:16px;height:16px;border-radius:50%;
+    background:#fff;transition:.2s ease;
+    box-shadow:0 2px 4px rgba(0,0,0,.18);
+  }
+  .toggle input:checked + .toggle-track{background:linear-gradient(90deg,#10b981,#059669);}
+  .toggle input:checked + .toggle-track::after{transform:translateX(14px);}
+  .toggle-label{
+    font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    color:#475569;text-transform:uppercase;
+  }
+  .toggle input:checked ~ .toggle-label{color:#059669;}
+
+  /* ---------- TARGET MANAGER HEADER ROW ---------- */
+  .manager-actions{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+    margin-bottom:14px;
+  }
+  .days-box{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:linear-gradient(90deg,#eef2ff,#fdf2f8);
+    border:1px solid #e0e7ff;
+    border-radius:14px;padding:12px 16px;
+    font-size:13px;font-weight:700;color:#1e293b;
+    margin-bottom:14px;
+  }
+  .days-box .days-num{
+    font-size:16px;font-weight:900;color:#4f46e5;
+    background:#fff;padding:3px 12px;border-radius:999px;
+    border:1px solid #e0e7ff;
+  }
+
+  .bulk-toggle{
+    display:flex;gap:6px;margin-left:auto;
+  }
+  .bulk-toggle button{
+    padding:6px 12px;border-radius:999px;
+    font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    background:#fff;color:#475569;border:1px solid var(--border);
+    cursor:pointer;text-transform:uppercase;
+    font-family:'Montserrat',sans-serif;
+    transition:.15s;
+  }
+  .bulk-toggle button:hover{background:#f1f5f9;}
+
 </style>
 </head>
 
@@ -147,8 +268,8 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="logo">DEALER PRO – TARGET</div>
-    <span class="badge">produzione & target</span>
+    <div class="logo">DEALER PRO · TARGET</div>
+    <span class="badge">produzione &amp; target</span>
     <nav class="tab-nav">
       <button class="tab-btn active" data-tab="tab-prod">Produzione</button>
       <button class="tab-btn" data-tab="tab-target">Target</button>
@@ -180,7 +301,8 @@
         <div class="chip" data-brand="Sky"><span class="chip-dot"></span>Sky</div>
         <div class="chip" data-brand="Fastweb"><span class="chip-dot"></span>Fastweb</div>
         <div class="chip" data-brand="Ho"><span class="chip-dot"></span>HO Mobile</div>
-        <div class="chip" data-brand="Tiscali"><span class="chip-dot"></span>Tiscali</div>
+        <div class="chip" data-brand="TiscaliMobile"><span class="chip-dot"></span>Tiscali Mobile</div>
+        <div class="chip" data-brand="TiscaliFisso"><span class="chip-dot"></span>Tiscali Fisso</div>
       </div>
     </div>
   </div>
@@ -214,26 +336,34 @@
   <div class="section-header">
     <div>
       <h2 class="section-title">Target Manager – PAF per piste principali</h2>
-      <p class="section-sub">Inserisci i TUOI target mensili (manager) + real: calcolo PAF fino a fine mese. Salvataggi separati.</p>
+      <p class="section-sub">Attiva solo i brand su cui hai un target. Il calcolo PAF e il riepilogo includono solo i brand attivi.</p>
     </div>
-    <span class="pill">solo brand principali</span>
+    <span class="pill">brand attivi</span>
   </div>
 
-  <div class="row" style="margin-top:0;">
-    <button id="btnCalcolaPAF" class="btn">CALCOLA PAF</button>
-    <button id="btnSaveTargets" class="btn dark">SALVA TARGET</button>
-    <button id="btnSaveReals" class="btn dark">SALVA REAL</button>
-    <button id="btnLoadManager" class="btn ghost">CARICA</button>
-    <button id="btnResetManager" class="btn ghost">RESET</button>
+  <div id="daysBox" class="days-box">
+    <span>📅 Giorni lavorativi residui (lun–sab)</span>
+    <span class="days-num" id="daysNum">—</span>
   </div>
 
-  <div id="daysBox" class="result" style="margin-top:12px;">Giorni lavorativi residui: …</div>
+  <div class="manager-actions">
+    <button id="btnCalcolaPAF" class="btn">Calcola PAF</button>
+    <button id="btnSaveTargets" class="btn dark">Salva target</button>
+    <button id="btnSaveReals" class="btn dark">Salva real</button>
+    <button id="btnLoadManager" class="btn ghost">Carica</button>
+    <button id="btnResetManager" class="btn ghost">Reset</button>
+    <div class="bulk-toggle">
+      <button id="btnEnableAll" type="button">Attiva tutti</button>
+      <button id="btnDisableAll" type="button">Disattiva tutti</button>
+    </div>
+  </div>
 
-  <div class="grid-3" style="margin-top:14px;">
-    <div class="card">
+  <div class="grid-3" id="cardsGrid">
+
+    <div class="card" data-card="acea">
       <div class="card-title">
-        <strong><span class="dot" style="background:#05a8b0;"></span>ACEA – Luce & Gas</strong>
-        <span class="pill">contratti</span>
+        <strong><span class="dot" style="background:#05a8b0;"></span>ACEA – Luce &amp; Gas</strong>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="acea" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_acea" class="field" type="number" min="0" step="1" placeholder="Es. 260"></div>
@@ -242,10 +372,10 @@
       <div id="kpi_acea" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="fw_mobile">
       <div class="card-title">
         <strong><span class="dot" style="background:#e4b002;"></span>FASTWEB – Mobile</strong>
-        <span class="pill">contratti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="fw_mobile" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_fw_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 35"></div>
@@ -254,10 +384,10 @@
       <div id="kpi_fw_mobile" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="fw_fisso">
       <div class="card-title">
         <strong><span class="dot" style="background:#f59e0b;"></span>FASTWEB – Fisso</strong>
-        <span class="pill">contratti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="fw_fisso" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_fw_fisso" class="field" type="number" min="0" step="1" placeholder="Es. 5"></div>
@@ -266,10 +396,10 @@
       <div id="kpi_fw_fisso" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="fw_energy">
       <div class="card-title">
         <strong><span class="dot" style="background:#b45309;"></span>FASTWEB – Energy</strong>
-        <span class="pill">contratti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="fw_energy" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_fw_energy" class="field" type="number" min="0" step="1" placeholder="Es. 5"></div>
@@ -278,10 +408,10 @@
       <div id="kpi_fw_energy" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="sky_contr">
       <div class="card-title">
         <strong><span class="dot" style="background:#cf01cf;"></span>SKY – Contratti</strong>
-        <span class="pill">contratti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="sky_contr" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_sky_contr" class="field" type="number" min="0" step="1" placeholder="Es. 7"></div>
@@ -290,10 +420,10 @@
       <div id="kpi_sky_contr" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="sky_punti">
       <div class="card-title">
         <strong><span class="dot" style="background:#7c3aed;"></span>SKY – Punti</strong>
-        <span class="pill">punti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="sky_punti" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_sky_punti" class="field" type="number" min="0" step="0.5" placeholder="Es. 13"></div>
@@ -302,10 +432,10 @@
       <div id="kpi_sky_punti" class="kpi">—</div>
     </div>
 
-    <div class="card">
+    <div class="card" data-card="ho_mobile">
       <div class="card-title">
         <strong><span class="dot" style="background:#5f58a1;"></span>HO Mobile</strong>
-        <span class="pill">contratti</span>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="ho_mobile" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
       </div>
       <div class="mini-grid">
         <div><label>Target (mese)</label><input id="t_ho_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 20"></div>
@@ -313,10 +443,35 @@
       </div>
       <div id="kpi_ho_mobile" class="kpi">—</div>
     </div>
+
+    <div class="card" data-card="tiscali_mobile">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#3b2783;"></span>TISCALI – Mobile</strong>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="tiscali_mobile" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_tiscali_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 15"></div>
+        <div><label>Real</label><input id="r_tiscali_mobile" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_tiscali_mobile" class="kpi">—</div>
+    </div>
+
+    <div class="card" data-card="tiscali_fisso">
+      <div class="card-title">
+        <strong><span class="dot" style="background:#6d28d9;"></span>TISCALI – Fisso</strong>
+        <label class="toggle"><input type="checkbox" class="track-toggle" data-key="tiscali_fisso" checked><span class="toggle-track"></span><span class="toggle-label">Attivo</span></label>
+      </div>
+      <div class="mini-grid">
+        <div><label>Target (mese)</label><input id="t_tiscali_fisso" class="field" type="number" min="0" step="1" placeholder="Es. 10"></div>
+        <div><label>Real</label><input id="r_tiscali_fisso" class="field" type="number" min="0" step="1" placeholder="Es. 0"></div>
+      </div>
+      <div id="kpi_tiscali_fisso" class="kpi">—</div>
+    </div>
+
   </div>
 
   <pre id="pafOutput" class="result" style="margin-top:14px;"></pre>
-  <p class="muted">I salvataggi sono separati: TARGET (una volta) + REAL (avanzamenti). Inoltre viene memorizzato l’ultimo testo risultato.</p>
+  <p class="muted">I salvataggi sono separati: TARGET (una volta) + REAL (avanzamenti). Lo stato dei brand attivi viene memorizzato automaticamente.</p>
 </section>
 
 </main>
@@ -331,7 +486,7 @@
     let giorni = 0;
     const tmp = new Date(oggi);
     while(tmp <= fineMese){
-      const day = tmp.getDay(); // 0=Dom, 1=Lun, ... 6=Sab
+      const day = tmp.getDay();
       if(day >= 1 && day <= 6){ giorni++; }
       tmp.setDate(tmp.getDate()+1);
     }
@@ -384,11 +539,16 @@
   });
   function getChipBrand(){
     const active = document.querySelector('#brandChipsProd .chip.active');
-    return active ? active.getAttribute('data-brand') : "";
+    if(!active) return "";
+    const map = {
+      Acea:"Acea", Sky:"Sky", Fastweb:"Fastweb", Ho:"HO Mobile",
+      TiscaliMobile:"Tiscali Mobile", TiscaliFisso:"Tiscali Fisso"
+    };
+    return map[active.getAttribute('data-brand')] || "";
   }
 
   // -------------------------------
-  // PRODUZIONE – logica + WhatsApp
+  // PRODUZIONE
   // -------------------------------
   const inputTarget = document.getElementById('targetContratti');
   const inputProd = document.getElementById('produzioneAttuale');
@@ -464,26 +624,29 @@
   aggiornaGiorniLavorativi();
 
   // -------------------------------
-  // TARGET MANAGER – PAF principali + salvataggi separati
+  // TARGET MANAGER
   // -------------------------------
-  const LS_TARGETS_KEY = "dealerPro_managerTargets_main_v2";
-  const LS_REALS_KEY   = "dealerPro_managerReals_main_v2";
-  const LS_RESULT_KEY  = "dealerPro_managerLastResult_main_v2";
+  const LS_TARGETS_KEY = "dealerPro_managerTargets_main_v3";
+  const LS_REALS_KEY   = "dealerPro_managerReals_main_v3";
+  const LS_RESULT_KEY  = "dealerPro_managerLastResult_main_v3";
+  const LS_ACTIVE_KEY  = "dealerPro_managerActiveBrands_v3";
 
   function aggiornaGiorniBox(){
     const giorni = calcolaGiorniLavorativiRimanenti(new Date());
-    document.getElementById("daysBox").textContent = `📅 Giorni lavorativi residui (lun–sab): ${giorni}`;
+    document.getElementById("daysNum").textContent = giorni;
     return giorni;
   }
 
   const TRACKS_MAIN = [
-    { key:"acea",      label:"ACEA – Luce & Gas",     unit:"contratti", t:"t_acea",      r:"r_acea",      k:"kpi_acea" },
-    { key:"fw_mobile", label:"FASTWEB – Mobile",      unit:"contratti", t:"t_fw_mobile", r:"r_fw_mobile", k:"kpi_fw_mobile" },
-    { key:"fw_fisso",  label:"FASTWEB – Fisso",       unit:"contratti", t:"t_fw_fisso",  r:"r_fw_fisso",  k:"kpi_fw_fisso" },
-    { key:"fw_energy", label:"FASTWEB – Energy",      unit:"contratti", t:"t_fw_energy", r:"r_fw_energy", k:"kpi_fw_energy" },
-    { key:"sky_contr", label:"SKY – Contratti",       unit:"contratti", t:"t_sky_contr", r:"r_sky_contr", k:"kpi_sky_contr" },
-    { key:"sky_punti", label:"SKY – Punti",           unit:"punti",     t:"t_sky_punti", r:"r_sky_punti", k:"kpi_sky_punti" },
-    { key:"ho_mobile", label:"HO Mobile",             unit:"contratti", t:"t_ho_mobile", r:"r_ho_mobile", k:"kpi_ho_mobile" },
+    { key:"acea",           label:"ACEA – Luce & Gas",  unit:"contratti", t:"t_acea",           r:"r_acea",           k:"kpi_acea" },
+    { key:"fw_mobile",      label:"FASTWEB – Mobile",   unit:"contratti", t:"t_fw_mobile",      r:"r_fw_mobile",      k:"kpi_fw_mobile" },
+    { key:"fw_fisso",       label:"FASTWEB – Fisso",    unit:"contratti", t:"t_fw_fisso",       r:"r_fw_fisso",       k:"kpi_fw_fisso" },
+    { key:"fw_energy",      label:"FASTWEB – Energy",   unit:"contratti", t:"t_fw_energy",      r:"r_fw_energy",      k:"kpi_fw_energy" },
+    { key:"sky_contr",      label:"SKY – Contratti",    unit:"contratti", t:"t_sky_contr",      r:"r_sky_contr",      k:"kpi_sky_contr" },
+    { key:"sky_punti",      label:"SKY – Punti",        unit:"punti",     t:"t_sky_punti",      r:"r_sky_punti",      k:"kpi_sky_punti" },
+    { key:"ho_mobile",      label:"HO Mobile",          unit:"contratti", t:"t_ho_mobile",      r:"r_ho_mobile",      k:"kpi_ho_mobile" },
+    { key:"tiscali_mobile", label:"TISCALI – Mobile",   unit:"contratti", t:"t_tiscali_mobile", r:"r_tiscali_mobile", k:"kpi_tiscali_mobile" },
+    { key:"tiscali_fisso",  label:"TISCALI – Fisso",    unit:"contratti", t:"t_tiscali_fisso",  r:"r_tiscali_fisso",  k:"kpi_tiscali_fisso" },
   ];
 
   function getVal(id){ return n(document.getElementById(id)?.value); }
@@ -493,11 +656,63 @@
     el.value = (v === null || v === undefined || v === "") ? "" : v;
   }
 
+  function getActiveMap(){
+    const out = {};
+    document.querySelectorAll('.track-toggle').forEach(cb=>{
+      out[cb.dataset.key] = !!cb.checked;
+    });
+    return out;
+  }
+  function isActive(key){
+    const cb = document.querySelector(`.track-toggle[data-key="${key}"]`);
+    return cb ? cb.checked : true;
+  }
+  function refreshCardStates(){
+    document.querySelectorAll('.track-toggle').forEach(cb=>{
+      const card = document.querySelector(`.card[data-card="${cb.dataset.key}"]`);
+      if(!card) return;
+      if(cb.checked) card.classList.remove('disabled');
+      else card.classList.add('disabled');
+    });
+  }
+  function saveActiveBrands(){
+    localStorage.setItem(LS_ACTIVE_KEY, JSON.stringify({
+      month: monthKey(new Date()), ts: Date.now(), values: getActiveMap()
+    }));
+  }
+  function loadActiveBrands(){
+    try{
+      const raw = localStorage.getItem(LS_ACTIVE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      if(!data?.values) return;
+      Object.keys(data.values).forEach(k=>{
+        const cb = document.querySelector(`.track-toggle[data-key="${k}"]`);
+        if(cb) cb.checked = !!data.values[k];
+      });
+    }catch(e){}
+  }
+
+  document.querySelectorAll('.track-toggle').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      refreshCardStates();
+      saveActiveBrands();
+    });
+  });
+
+  document.getElementById('btnEnableAll').addEventListener('click', ()=>{
+    document.querySelectorAll('.track-toggle').forEach(cb=>cb.checked = true);
+    refreshCardStates(); saveActiveBrands();
+  });
+  document.getElementById('btnDisableAll').addEventListener('click', ()=>{
+    document.querySelectorAll('.track-toggle').forEach(cb=>cb.checked = false);
+    refreshCardStates(); saveActiveBrands();
+  });
+
   function saveLastResult(text){
     const payload = { month: monthKey(new Date()), ts: Date.now(), text: text || "" };
     localStorage.setItem(LS_RESULT_KEY, JSON.stringify(payload));
   }
-
   function loadLastResult(){
     try{
       const raw = localStorage.getItem(LS_RESULT_KEY);
@@ -508,23 +723,33 @@
         return true;
       }
       return false;
-    }catch(e){
-      return false;
-    }
+    }catch(e){ return false; }
   }
 
   function calcolaPAFManager(){
     const giorni = aggiornaGiorniBox();
     const p = nicePeriod();
 
+    const attivi = TRACKS_MAIN.filter(t => isActive(t.key));
+
     let out =
-      `📌 PAF Manager (piste principali)\n` +
+      `📌 PAF Manager (brand attivi)\n` +
       `Periodo: ${p.from} → ${p.to}\n` +
-      `Giorni lavorativi residui (lun–sab): ${giorni}\n\n`;
+      `Giorni lavorativi residui (lun–sab): ${giorni}\n` +
+      `Brand attivi: ${attivi.length}/${TRACKS_MAIN.length}\n\n`;
 
     let maxPaf = -1, maxLabel = "";
+    let anyData = false;
 
+    // reset KPI on inactive cards
     TRACKS_MAIN.forEach(t=>{
+      if(!isActive(t.key)){
+        const kpi = document.getElementById(t.k);
+        if(kpi) kpi.textContent = "— (brand non attivo)";
+      }
+    });
+
+    attivi.forEach(t=>{
       const target = getVal(t.t);
       const real = getVal(t.r);
       const mancanti = Math.max(0, target - real);
@@ -544,6 +769,7 @@
       }
 
       if(target > 0 || real > 0){
+        anyData = true;
         out +=
           `• ${t.label}\n`+
           `  Target: ${fmt2(target)} | Real: ${fmt2(real)} | Mancanti: ${fmt2(mancanti)}\n`+
@@ -551,16 +777,18 @@
       }
     });
 
-    if(maxPaf > 0){
+    if(attivi.length === 0){
+      out += `⚠️ Nessun brand attivo selezionato.`;
+    }else if(!anyData){
+      out += `ℹ️ Nessun dato inserito sui brand attivi.`;
+    }else if(maxPaf > 0){
       out += `🎯 Priorità operativa (PAF più alta): ${maxLabel} → ${fmt2(maxPaf)} /giorno`;
     }else{
-      out += `✅ Nessuna pista in carenza (mancanti = 0 su tutte le piste compilate).`;
+      out += `✅ Nessuna pista in carenza (mancanti = 0 su tutti i brand attivi).`;
     }
 
     const finalText = out.trim();
     document.getElementById("pafOutput").textContent = finalText;
-
-    // ✅ salva anche il testo risultato
     saveLastResult(finalText);
   }
 
@@ -568,6 +796,7 @@
     const payload = { month: monthKey(new Date()), ts: Date.now(), values: {} };
     TRACKS_MAIN.forEach(t=>{ payload.values[t.t] = getVal(t.t); });
     localStorage.setItem(LS_TARGETS_KEY, JSON.stringify(payload));
+    saveActiveBrands();
     alert("Target salvati in locale ✅");
   }
 
@@ -576,7 +805,6 @@
     TRACKS_MAIN.forEach(t=>{ payload.values[t.r] = getVal(t.r); });
     localStorage.setItem(LS_REALS_KEY, JSON.stringify(payload));
 
-    // opzionale: salva snapshot risultato corrente (se presente)
     const currentText = (document.getElementById("pafOutput").textContent || "").trim();
     if(currentText) saveLastResult(currentText);
 
@@ -586,7 +814,6 @@
   function loadManager(){
     let loadedSomething = false;
 
-    // targets
     try{
       const rawT = localStorage.getItem(LS_TARGETS_KEY);
       if(rawT){
@@ -598,7 +825,6 @@
       }
     }catch(e){}
 
-    // reals
     try{
       const rawR = localStorage.getItem(LS_REALS_KEY);
       if(rawR){
@@ -610,23 +836,25 @@
       }
     }catch(e){}
 
-    // last result
+    loadActiveBrands();
+    refreshCardStates();
+
     const hasResult = loadLastResult();
     if(hasResult) loadedSomething = true;
 
     aggiornaGiorniBox();
 
     if(!loadedSomething){
-      alert("Nessun dato salvato da caricare.");
-    }else{
-      alert("Dati caricati ✅ (Target/Real/Ultimo risultato)");
+      // silenzioso al primo avvio
     }
   }
 
   function resetManager(){
+    if(!confirm("Confermi il reset completo (target, real, risultati, brand attivi)?")) return;
     localStorage.removeItem(LS_TARGETS_KEY);
     localStorage.removeItem(LS_REALS_KEY);
     localStorage.removeItem(LS_RESULT_KEY);
+    localStorage.removeItem(LS_ACTIVE_KEY);
 
     TRACKS_MAIN.forEach(t=>{
       setVal(t.t,"");
@@ -634,6 +862,9 @@
       const kpi = document.getElementById(t.k);
       if(kpi) kpi.textContent = "—";
     });
+
+    document.querySelectorAll('.track-toggle').forEach(cb=>cb.checked = true);
+    refreshCardStates();
 
     document.getElementById("pafOutput").textContent = "";
     alert("Reset completo ✅");
@@ -645,9 +876,10 @@
   document.getElementById("btnLoadManager").addEventListener("click", loadManager);
   document.getElementById("btnResetManager").addEventListener("click", resetManager);
 
-  // init: giorni + autoload (non invasivo)
+  // init
   aggiornaGiorniBox();
   loadManager();
+  refreshCardStates();
 </script>
 
 </body>
